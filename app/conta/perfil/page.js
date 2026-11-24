@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ChevronRight, Users } from 'lucide-react'
+import { ChevronRight, Clock, MapPin, Users } from 'lucide-react'
 import { criarClienteServidor } from '@/lib/supabase/server'
 import TopoAzul from '@/components/TopoAzul'
 import BotaoLeitura from '@/components/BotaoLeitura'
@@ -33,6 +33,27 @@ export default async function PaginaPerfil() {
       </TopoAzul>
 
       <div className="folha">
+        {perfil?.tipo === 'profissional' && (
+          <>
+            <Link href="/conta/bairros" className="cartao-link">
+              <span className="tile-icone" aria-hidden="true"><MapPin size={24} /></span>
+              <span className="cartao-link-texto">
+                <strong>Onde eu atendo</strong>
+                <span>Bairros e apresentação</span>
+              </span>
+              <ChevronRight size={22} aria-hidden="true" className="cartao-link-seta" />
+            </Link>
+            <Link href="/conta/horarios" className="cartao-link">
+              <span className="tile-icone" aria-hidden="true"><Clock size={24} /></span>
+              <span className="cartao-link-texto">
+                <strong>Meus horários</strong>
+                <span>Dias da semana e folgas</span>
+              </span>
+              <ChevronRight size={22} aria-hidden="true" className="cartao-link-seta" />
+            </Link>
+          </>
+        )}
+
         <Link href="/conta/familia" className="cartao-link">
           <span className="tile-icone" aria-hidden="true"><Users size={24} /></span>
           <span className="cartao-link-texto">

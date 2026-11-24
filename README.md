@@ -89,3 +89,23 @@ proxy.js                 protege /conta e renova o login
 - [ ] Navegar só com a tecla Tab: o contorno amarelo mostra onde você está.
 - [ ] Testar o alto contraste e a letra "Muito grande" no celular.
 - [ ] Dar zoom no celular com dois dedos: precisa funcionar.
+
+## Roteiro de testes da área da profissional
+
+Crie uma conta escolhendo **"Sou profissional"**.
+
+- [ ] O início mostra "Complete seu cadastro" com 4 passos e "Você ainda não aparece na busca".
+- [ ] **Perfil**: preencha o endereço pelo CEP. O passo "Seu endereço" fica marcado.
+- [ ] **Onde eu atendo**: adicione um bairro pelo CEP e outro pelo nome, remova um, salve.
+- [ ] **Serviços**: adicione "Manicure" com preço 60,00. Confira "O cliente paga R$ 63,00" e "Você recebe R$ 51,00".
+- [ ] Adicione "Outro serviço" sem nome: deve pedir o nome e a descrição. Com eles, fica "Esperando revisão da equipe".
+- [ ] Pause a manicure e volte a oferecer. Edite o preço. Exclua o "Outro serviço".
+- [ ] **Horários**: adicione segunda e quarta das 08:00 às 12:00. Tente adicionar segunda das 10:00 às 14:00: deve avisar que bate com outro horário.
+- [ ] Adicione uma folga de um dia inteiro e outra de só uma parte do dia. Exclua uma.
+- [ ] Com bairro e serviço salvos, o início diz "Você já aparece na busca".
+- [ ] Entre com uma conta de **cliente** de um desses bairros e procure em **Buscar**: a profissional aparece no topo, com "atende o seu bairro".
+- [ ] Para aprovar um "Outro serviço" (equipe), no SQL Editor:
+  ```sql
+  update profissional_servicos set situacao = 'aprovado', revisado_em = now()
+  where servico_id = (select id from servicos where nome = 'Outro serviço');
+  ```

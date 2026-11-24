@@ -1,17 +1,16 @@
 import { redirect } from 'next/navigation'
-import { criarClienteServidor } from '@/lib/supabase/server'
+import { usuarioAtual } from '@/lib/usuario'
 import NavInferior from '@/components/NavInferior'
 
 // Toda página dentro de /conta passa por aqui: sem login, volta para /entrar
 export default async function LayoutConta({ children }) {
-  const supabase = await criarClienteServidor()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { user, tipo } = await usuarioAtual()
   if (!user) redirect('/entrar')
 
   return (
     <div className="com-nav">
       {children}
-      <NavInferior />
+      <NavInferior tipo={tipo} />
     </div>
   )
 }

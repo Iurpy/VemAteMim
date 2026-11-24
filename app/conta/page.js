@@ -6,6 +6,7 @@ import BotaoLeitura from '@/components/BotaoLeitura'
 import CartaoAgendamento from '@/components/CartaoAgendamento'
 import { infoServico } from '@/components/IconeServico'
 import { CAMPOS_AGENDAMENTO } from '@/lib/agendamentos'
+import InicioProfissional from './InicioProfissional'
 
 export const metadata = { title: 'Início | Vem Até Mim' }
 
@@ -14,6 +15,9 @@ const DESTAQUES = ['Manicure', 'Pedicure', 'Corte masculino', 'Corte feminino', 
 export default async function PaginaConta() {
   const supabase = await criarClienteServidor()
   const { data: { user } } = await supabase.auth.getUser()
+
+  const { data: tipoPerfil } = await supabase.from('perfis').select('tipo').eq('id', user.id).single()
+  if (tipoPerfil?.tipo === 'profissional') return <InicioProfissional supabase={supabase} user={user} />
 
   const [{ data: perfil }, { data: servicos }, { data: proximos }] = await Promise.all([
     supabase.from('perfis').select('nome, tipo, bairro, cidade, uf').eq('id', user.id).single(),
@@ -62,12 +66,6 @@ export default async function PaginaConta() {
       </TopoAzul>
 
       <div className="folha">
-        {perfil?.tipo === 'profissional' && (
-          <div className="aviso info">
-            <p>Em breve você vai cadastrar aqui seus serviços, preços, bairros e horários.</p>
-          </div>
-        )}
-
         <div className="secao-titulo">
           <h2>Serviços</h2>
           <Link href="/buscar" className="ver-todos">Ver todos <ChevronRight size={18} aria-hidden="true" /></Link>

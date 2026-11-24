@@ -135,7 +135,7 @@ main:focus { outline: none; }
 
 /* Logo */
 .logo { display: inline-flex; align-items: center; gap: 0.55rem; white-space: nowrap; color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 1.2rem; min-height: 48px; }
-.logo-marca { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: #FFFFFF; color: #0B5CC4; }
+.logo-marca { display: grid; place-items: center; flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: #FFFFFF; color: #0B5CC4; }
 :root[data-contraste="alto"] .logo-marca { background: #FFE14D; color: #000; }
 .logo .mim { color: var(--menta); }
 
@@ -301,7 +301,7 @@ main:focus { outline: none; }
   background: var(--fundo); border-top: 1.5px solid var(--borda);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-.nav-inferior ul { list-style: none; margin: 0 auto; padding: 0.3rem 0.5rem; max-width: var(--coluna); display: grid; grid-template-columns: repeat(4, 1fr); }
+.nav-inferior ul { list-style: none; margin: 0 auto; padding: 0.3rem 0.5rem; max-width: var(--coluna); display: grid; grid-template-columns: repeat(var(--itens, 4), 1fr); }
 .nav-inferior a {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.1rem;
   min-height: 60px; color: var(--texto-fraco); text-decoration: none; font-size: 0.78rem; font-weight: 700;
@@ -505,3 +505,82 @@ form > .botao.largo { margin-top: 0.4rem; }
 .topo-azul .painel-leitura p { color: var(--texto); max-width: none; }
 .topo-azul .painel-leitura .acess-titulo { margin-bottom: 0.5rem; }
 .topo-azul .painel-leitura .ajuda { color: var(--texto-fraco); margin-top: 0.6rem; }
+
+/* =====================================================================
+   Área da profissional
+   ===================================================================== */
+.cartao-link + .cartao-link { margin-top: 0.75rem; }
+input[type="date"] {
+  width: 100%; font: inherit; color: var(--texto); background: var(--fundo);
+  border: 1.5px solid var(--borda-campo); border-radius: 14px; padding: 0.6rem 0.9rem; min-height: 54px;
+}
+.situacao-busca {
+  display: inline-block; margin-top: 1rem !important; padding: 0.35rem 0.9rem;
+  border-radius: 999px; background: rgba(255, 255, 255, 0.16); font-weight: 700;
+}
+
+/* Passo a passo do cadastro */
+.checklist { list-style: none; padding: 0; margin: 0 0 1.8rem; display: grid; gap: 0.6rem; }
+.checklist a {
+  display: flex; align-items: center; gap: 0.9rem; padding: 0.85rem 1rem;
+  border: 1.5px solid var(--borda); border-radius: 18px; color: var(--texto); text-decoration: none; box-shadow: var(--sombra);
+}
+.checklist .feito a { background: var(--fundo-suave); }
+.check-marca {
+  display: grid; place-items: center; flex: none; width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  border: 2px solid var(--borda-campo); color: #FFFFFF;
+}
+.checklist .feito .check-marca { background: var(--verde); border-color: var(--verde); }
+.grade-atalhos { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+
+/* Lista de serviços */
+.item-servico-topo { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 0.5rem; }
+.item-servico-topo .tile-icone { margin: 0; }
+.item-servico-topo p { margin: 0; }
+.item-servico .chip-status { margin-top: 0.3rem; }
+.preco-linha { font-size: 1.05rem; margin: 0.4rem 0 0.1rem !important; }
+.motivo { background: var(--erro-claro); border-radius: 10px; padding: 0.5rem 0.7rem; }
+.resumo-preco { background: var(--azul-claro); border-radius: 16px; padding: 0.9rem 1rem; margin-bottom: 1.2rem; }
+.resumo-preco p { margin: 0 0 0.3rem; }
+.resumo-preco p:last-child { margin: 0; }
+.valor-fixo { font-weight: 700; font-size: 1.1rem; margin: 0; padding: 0.7rem 0.9rem; background: var(--fundo-suave); border-radius: 14px; }
+.zona-excluir { margin-top: 2.2rem; padding-top: 1.4rem; border-top: 1.5px solid var(--borda); }
+
+/* Bairros */
+.grupo > h2 { margin-bottom: 0.3rem; }
+.lista-bairros { list-style: none; padding: 0; margin: 0.8rem 0 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.lista-bairros li {
+  display: inline-flex; align-items: center; gap: 0.2rem; padding-left: 1rem;
+  border-radius: 999px; background: var(--azul-claro); border: 1.5px solid var(--azul-borda); font-weight: 700;
+}
+.lista-bairros button {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  border: 0; background: transparent; color: var(--texto); cursor: pointer;
+}
+.lista-bairros button:hover { background: rgba(0, 0, 0, 0.06); }
+.subtitulo-bairro { margin-top: 1.6rem; }
+
+/* Horários */
+.semana { list-style: none; padding: 0; margin: 1rem 0 1.4rem; border: 1.5px solid var(--borda); border-radius: 18px; }
+.semana > li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.3rem 1rem; padding: 0.7rem 1rem; }
+.semana > li + li { border-top: 1px solid var(--borda); }
+.semana-dia { min-width: 8.5rem; }
+.periodos { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem; }
+.periodos li, .lista-folgas li { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.botao-icone {
+  display: grid; place-items: center; flex: none; width: 48px; height: 48px; border-radius: 12px;
+  border: 1.5px solid transparent; background: transparent; color: var(--erro); cursor: pointer;
+}
+.botao-icone:hover { border-color: var(--erro); background: var(--erro-claro); }
+.caixa-adicionar { background: var(--fundo-suave); border-radius: 18px; padding: 1.1rem 1rem 1.2rem; margin-top: 1rem; }
+.caixa-adicionar h3 { margin-bottom: 0.8rem; }
+.dias-semana { border: 0; padding: 0; margin: 0 0 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; min-width: 0; }
+.dias-semana legend { font-weight: 700; margin-bottom: 0.4rem; padding: 0; }
+.dias-semana .opcao { margin: 0; background: var(--fundo); min-width: 0; }
+.lista-folgas { list-style: none; padding: 0; margin: 0.8rem 0 0; display: grid; gap: 0.4rem; }
+.lista-folgas li { padding: 0.5rem 0.5rem 0.5rem 1rem; border: 1.5px solid var(--borda); border-radius: 14px; }
+
+@media (min-width: 960px) {
+  .grade-atalhos { max-width: 760px; }
+  .dias-semana { grid-template-columns: repeat(4, 1fr); }
+}

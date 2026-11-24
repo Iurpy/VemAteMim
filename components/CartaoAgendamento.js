@@ -1,6 +1,7 @@
 import { STATUS, dataHoraLonga, diaDoMes, diaSemanaCurto } from '@/lib/agendamentos'
 
-export default function CartaoAgendamento({ a }) {
+// visao: 'cliente' mostra com quem é; 'profissional' mostra para quem e onde
+export default function CartaoAgendamento({ a, visao = 'cliente' }) {
   const status = STATUS[a.status] ?? { rotulo: a.status, classe: 'neutro' }
   const profissional = a.profissionais?.perfis?.nome
   return (
@@ -16,7 +17,9 @@ export default function CartaoAgendamento({ a }) {
         </div>
         <p>{dataHoraLonga(a.inicio)}</p>
         <p className="fraco">
-          {profissional ? `Com ${profissional}` : ''}{profissional ? ', ' : ''}para {a.nome_atendido}
+          {visao === 'profissional'
+            ? `Para ${a.nome_atendido}, no ${a.bairro}`
+            : `${profissional ? `Com ${profissional}, ` : ''}para ${a.nome_atendido}`}
         </p>
       </div>
     </li>

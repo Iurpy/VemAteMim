@@ -61,7 +61,9 @@ export default function BuscaProfissionais({ buscaInicial, servicoInicial }) {
 
     const lista = [...porProfissional.values()]
     // Quem atende o meu bairro aparece primeiro
-    const atendeMeu = (p) => meuBairro && p.bairros.some((b) => semAcento(b) === semAcento(meuBairro))
+    // "Jereissati" e "Jereissati I" contam como o mesmo bairro
+    const mesmoBairro = (a, b) => { const x = semAcento(a), y = semAcento(b); return x === y || x.includes(y) || y.includes(x) }
+    const atendeMeu = (p) => !!meuBairro && p.bairros.some((b) => mesmoBairro(b, meuBairro))
     lista.sort((a, b) => Number(atendeMeu(b)) - Number(atendeMeu(a)) || (b.nota ?? 0) - (a.nota ?? 0))
     return lista.map((p) => ({ ...p, atendeMeu: atendeMeu(p) }))
   }, [ofertas, busca, servico, bairro, meuBairro])
