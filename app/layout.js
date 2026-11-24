@@ -1,5 +1,6 @@
 import './globals.css'
 import SincronizarPreferencias from '@/components/SincronizarPreferencias'
+import LeitorDeBotoes from '@/components/LeitorDeBotoes'
 import { scriptPreferencias } from '@/lib/preferencias'
 
 export const metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
       <body>
         <a href="#conteudo" className="pular">Pular para o conteúdo</a>
         <SincronizarPreferencias />
+        <LeitorDeBotoes />
         <main id="conteudo" tabIndex={-1}>{children}</main>
       </body>
     </html>

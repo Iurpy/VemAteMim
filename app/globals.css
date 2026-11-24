@@ -497,3 +497,11 @@ form > .botao.largo { margin-top: 0.4rem; }
 @media (min-width: 1500px) {
   .lista-profissionais { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* Botão de leitura em voz alta, no painel "Aa" */
+.botao-voz { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 0.6rem; }
+.aviso-voz { margin: 0.6rem 0 0; }
+/* O painel "Aa" fica dentro do topo azul: garante as cores certas nele */
+.topo-azul .painel-leitura p { color: var(--texto); max-width: none; }
+.topo-azul .painel-leitura .acess-titulo { margin-bottom: 0.5rem; }
+.topo-azul .painel-leitura .ajuda { color: var(--texto-fraco); margin-top: 0.6rem; }

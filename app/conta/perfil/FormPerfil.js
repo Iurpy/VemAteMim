@@ -7,6 +7,7 @@ import {
   formatarTelefone, soDigitos, telefoneValido, validarEndereco,
 } from '@/lib/formatos'
 import { TAMANHOS, aplicarPreferencias } from '@/lib/preferencias'
+import { falar } from '@/lib/voz'
 import { traduzirErro } from '@/lib/erros'
 import Campo from '@/components/Campo'
 import CamposEndereco from '@/components/CamposEndereco'
@@ -23,7 +24,7 @@ export default function FormPerfil() {
   const [carregando, setCarregando] = useState(true)
   const [userId, setUserId] = useState(null)
   const [tipo, setTipo] = useState('cliente')
-  const [dados, setDados] = useState({ nome: '', telefone: '', canal_contato: 'whatsapp', tamanho_fonte: 2, alto_contraste: false })
+  const [dados, setDados] = useState({ nome: '', telefone: '', canal_contato: 'whatsapp', tamanho_fonte: 2, alto_contraste: false, ler_em_voz_alta: false })
   const [endereco, setEndereco] = useState(enderecoVazio)
   const [erros, setErros] = useState({})
   const [mensagem, setMensagem] = useState('')
@@ -48,6 +49,7 @@ export default function FormPerfil() {
           canal_contato: data.canal_contato,
           tamanho_fonte: data.tamanho_fonte,
           alto_contraste: data.alto_contraste,
+          ler_em_voz_alta: !!data.ler_em_voz_alta,
         })
         setEndereco(enderecoParaTela(data))
       }
@@ -93,6 +95,7 @@ export default function FormPerfil() {
         canal_contato: dados.canal_contato,
         tamanho_fonte: Number(dados.tamanho_fonte),
         alto_contraste: dados.alto_contraste,
+        ler_em_voz_alta: dados.ler_em_voz_alta,
         ...enderecoParaBanco(endereco),
       })
       .eq('id', userId)
@@ -102,7 +105,7 @@ export default function FormPerfil() {
       setMensagem(traduzirErro(error))
       return
     }
-    aplicarPreferencias({ tamanho: Number(dados.tamanho_fonte), contraste: dados.alto_contraste })
+    aplicarPreferencias({ tamanho: Number(dados.tamanho_fonte), contraste: dados.alto_contraste, voz: dados.ler_em_voz_alta })
     setSalvo(true)
     window.scrollTo(0, 0)
   }
@@ -142,7 +145,7 @@ export default function FormPerfil() {
         </fieldset>
 
         <fieldset className="grupo">
-          <legend>Como prefere ver o site</legend>
+          <legend>Como prefere usar o site</legend>
           <p className="ajuda">Tamanho da letra</p>
           {TAMANHOS.map((t) => (
             <label key={t.valor} className="opcao">
@@ -153,6 +156,17 @@ export default function FormPerfil() {
           <label className="opcao" style={{ marginTop: '1rem' }}>
             <input type="checkbox" checked={dados.alto_contraste} onChange={(e) => alterar('alto_contraste', e.target.checked)} />
             <span>Alto contraste (fundo preto, letras brancas e amarelas)</span>
+          </label>
+          <label className="opcao">
+            <input
+              type="checkbox"
+              checked={dados.ler_em_voz_alta}
+              onChange={(e) => {
+                alterar('ler_em_voz_alta', e.target.checked)
+                if (e.target.checked) falar('Ao tocar em um botão ou numa caixa de texto, eu leio o que está escrito nele.')
+              }}
+            />
+            <span>Leitura em voz alta (ao tocar em um botão ou numa caixa de texto, o site lê o que está escrito nele)</span>
           </label>
         </fieldset>
 

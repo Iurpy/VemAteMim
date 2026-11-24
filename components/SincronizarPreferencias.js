@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { criarClienteNavegador } from '@/lib/supabase/client'
-import { aplicarPreferencias } from '@/lib/preferencias'
+import { aplicarPreferencias, prefsDoPerfil } from '@/lib/preferencias'
 
 // Ao abrir o site com login, aplica a letra e o contraste salvos no perfil
 export default function SincronizarPreferencias() {
@@ -12,10 +12,10 @@ export default function SincronizarPreferencias() {
       if (!user) return
       const { data } = await supabase
         .from('perfis')
-        .select('tamanho_fonte, alto_contraste')
+        .select('tamanho_fonte, alto_contraste, ler_em_voz_alta')
         .eq('id', user.id)
         .single()
-      if (data) aplicarPreferencias({ tamanho: data.tamanho_fonte, contraste: data.alto_contraste })
+      if (data) aplicarPreferencias(prefsDoPerfil(data))
     })
   }, [])
   return null
